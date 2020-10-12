@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
+use App\Http\Resources\ArticleCollection;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+use App\Traits\HasSorts;
 
 class Article extends Model
 {
     use HasFactory;
+    use HasSorts;
+
+    public $allowedSorts = ['title', 'content'];
 
     /**
      * The attributes that aren't mass assignable.

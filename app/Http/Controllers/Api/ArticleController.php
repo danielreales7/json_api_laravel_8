@@ -13,23 +13,13 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $sortFields = Str::of(request('sort'))->explode(',');
-        $articleQuery = Article::query();
-
-        foreach ($sortFields as $sortField) {
-            $direction = 'asc';
-            if(Str::of($sortField)->startsWith('-')) {
-                $direction = 'desc';
-                $sortField = Str::of($sortField)->substr(1);
-            }
-            $articleQuery->orderBy($sortField, $direction);
-        }
+        $articles = Article::applySorts(request('sort'))->get();
 
         if(request()->missing('sort')) {
             return ArticleCollection::make(Article::all());
         }
 
-        return ArticleCollection::make($articleQuery->get());
+        return ArticleCollection::make($articles);
     }
 
     public function show(Article $article)
