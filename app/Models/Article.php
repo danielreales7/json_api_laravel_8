@@ -12,7 +12,6 @@ use App\Traits\HasSorts;
 class Article extends Model
 {
     use HasFactory;
-    use HasSorts;
 
     public $allowedSorts = ['title', 'content'];
 
